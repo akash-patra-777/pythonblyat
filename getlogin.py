@@ -39,8 +39,8 @@ class TikTokAccountManager:
            print(f"Poszel nachuj {username} jest zajety")
            return False
        
-       accounts = TikTokAccount(username, password, email, display_name)
-       self.accounts.append(accounts)
+       account = TikTokAccount(username, password, email, display_name)
+       self.accounts.append(account)
        self.save_accounts()
        print(f"Poszel nachuj {username} zostal dodany")
        return True
@@ -58,8 +58,8 @@ class TikTokAccountManager:
        if not active_accounts:
               print("Nima kont")
               return []
-       for self.accounts in active_accounts:
-           print(f"Username: {self.accounts.username}, Email: {self.accounts.email}, Display Name: {self.accounts.display_name}, Created At: {self.accounts.created_at}")
+       for account in active_accounts:
+           print(f"Username: {account.username}, Email: {account.email}, Display Name: {account.display_name}, Created At: {account.created_at}")
            
        return active_accounts   
    
@@ -89,8 +89,8 @@ class TikTokAccountManager:
           except(json.JSONDecodeError, KeyError) as e:
               print(f"Error loading accounts: {e}")
               self.accounts = []
-          else:
-              self.accounts = []
+       else:
+          self.accounts = []
    def import_accounts_txt(self,filename: str):
        
        try:

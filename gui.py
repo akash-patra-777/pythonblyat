@@ -125,26 +125,26 @@ def button_getlogin():
                 account_frame.pack(fill="x", padx=5, pady=5)
             
             # Account info
-            info_text = f"👤 {account.username} | 📧 {account.email} | 📝 {account.display_name}"
-            account_label = customtkinter.CTkLabel(account_frame, text=info_text)
-            account_label.pack(side="left", padx=10, pady=5)
+                info_text = f"👤 {account.username} | 📧 {account.email} | 📝 {account.display_name}"
+                account_label = customtkinter.CTkLabel(account_frame, text=info_text)
+                account_label.pack(side="left", padx=10, pady=5)
             
             # Remove button
-            def remove_account(username=account.username):
-                if messagebox.askyesno("Confirm", f"Remove account '{username}'?"):
-                    if manager.remove_account(username):
-                        messagebox.showinfo("Success", f"Account '{username}' removed!")
-                        refresh_accounts()
+                def remove_account(username=account.username):
+                    if messagebox.askyesno("Confirm", f"Remove account '{username}'?"):
+                        if manager.remove_account(username):
+                             messagebox.showinfo("Success", f"Account '{username}' removed!")
+                             refresh_accounts()
                     else:
                         messagebox.showerror("Error", "Failed to remove account!")
             
-            remove_btn = customtkinter.CTkButton(account_frame, text="❌", 
+                remove_btn = customtkinter.CTkButton(account_frame, text="❌", 
                                                command=remove_account, width=40, height=25)
-            remove_btn.pack(side="right", padx=10, pady=5)
+                remove_btn.pack(side="right", padx=10, pady=5)
 
 # Refresh button
-        refresh_button = customtkinter.CTkButton(list_frame, text="🔄 Refresh", command=refresh_accounts)
-        refresh_button.pack(pady=5)
+    refresh_button = customtkinter.CTkButton(list_frame, text="🔄 Refresh", command=refresh_accounts)
+    refresh_button.pack(pady=5)
 
 # Initial load
     refresh_accounts()
