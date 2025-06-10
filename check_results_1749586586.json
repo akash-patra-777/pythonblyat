@@ -1,9 +1,0 @@
-[
-  {
-    "username": "testdev777",
-    "password": "chujchuj!2",
-    "status": "error",
-    "message": "An error occurred: Message: invalid session id: session deleted as the browser has closed the connection\nfrom disconnected: not connected to DevTools\n  (Session info: chrome=137.0.7151.70)\nStacktrace:\n\tGetHandleVerifier [0x0x7ff78873fe75+79173]\n\tGetHandleVerifier [0x0x7ff78873fed0+79264]\n\t(No symbol) [0x0x7ff7884f9e5a]\n\t(No symbol) [0x0x7ff7884e5c25]\n\t(No symbol) [0x0x7ff78850ac44]\n\t(No symbol) [0x0x7ff7885803c5]\n\t(No symbol) [0x0x7ff7885a0922]\n\t(No symbol) [0x0x7ff788578743]\n\t(No symbol) [0x0x7ff7885414c1]\n\t(No symbol) [0x0x7ff788542253]\n\tGetHandleVerifier [0x0x7ff788a0a2ad+3004797]\n\tGetHandleVerifier [0x0x7ff788a046fd+2981325]\n\tGetHandleVerifier [0x0x7ff788a23350+3107360]\n\tGetHandleVerifier [0x0x7ff78875a9fe+188622]\n\tGetHandleVerifier [0x0x7ff78876228f+219487]\n\tGetHandleVerifier [0x0x7ff788748dc4+115860]\n\tGetHandleVerifier [0x0x7ff788748f79+116297]\n\tGetHandleVerifier [0x0x7ff78872f528+11256]\n\tBaseThreadInitThunk [0x0x7ffff5e4e8d7+23]\n\tRtlUserThreadStart [0x0x7ffff6a1fbcc+44]\n",
-    "timestamp": 1749586570.7198732
-  }
-]
