@@ -54,7 +54,7 @@ class TikTokAccountManager:
    """List accounts"""
 
    def list_accounts(self) -> List[TikTokAccount]:
-       active_accounts = [accounts for accounts in self.accounts if accounts.is_active]
+       active_accounts = [account for account in self.accounts if account.is_active]
        if not active_accounts:
               print("Nima kont")
               return []
@@ -91,7 +91,7 @@ class TikTokAccountManager:
               self.accounts = []
           else:
               self.accounts = []
-   def import_accounts_txt(filename: str):
+   def import_accounts_txt(self,filename: str):
        
        try:
             with open(filename, "r") as f:
@@ -102,13 +102,13 @@ class TikTokAccountManager:
                 if line:
 
                     parts =line.split(":")
-                    if len(parts) == 3:
+                    if len(parts) >= 3:
                         username = parts[0]
                         password = parts[1]
                         email = parts[2]
                         display_name = parts[3] if len(parts) > 3 else ""
 
-                        TikTokAccountManager.add_account(username, password, email, display_name)
+                        self.add_account(username, password, email, display_name)
                     print(f"Poszel nachuj {filename} imported")
                     return True
        except FileNotFoundError:

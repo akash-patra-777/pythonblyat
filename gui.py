@@ -22,10 +22,13 @@ frame.grid(column=0, row=1, columnspan=4, padx=10, pady=10, sticky="nsew")
 app.grid_columnconfigure(0, weight=1)
 app.grid_rowconfigure(1, weight=1)
 
+
 def clear_content():
     for widget in frame.winfo_children():
         widget.destroy()
-
+        
+        
+        
 def button_getlogin():
     clear_content()
 
@@ -60,9 +63,91 @@ def button_getlogin():
     displayname_label.grid(column=2, row=1, padx=5, pady=5, sticky='w')
     displayname_entry = customtkinter.CTkEntry(input_frame, width=200)
     displayname_entry.grid(column=3, row=1, padx=5, pady=5)
-
     
+    def add_account():
+        username = username_entry.get().strip()
+        password = password_entry.get().strip()
+        email = email_entry.get().strip()
+        display_name = displayname_entry.get().strip()
 
+        if not username or not password or not email:
+            messagebox.showerror("Error", "All fields are required!")
+            return
+        if manager.add_account(username, password, email, display_name):
+            messagebox.showinfo("Success", f"Account {username} added successfully!")
+            username_entry.delete(0, 'end')
+            password_entry.delete(0, 'end')
+            email_entry.delete(0, 'end')
+            displayname_entry.delete(0, 'end')
+        else:
+            messagebox.showerror("Error", f"Failed to add account {username}. It may already exist.")
+    def import_accounts():
+        import tkinter.filedialog as filedialog
+        file_path = filedialog.askopenfilename(
+            title="Select TXT File",
+            filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")]
+        )
+        if file_path:
+            if manager.import_accounts_txt(file_path):
+                messagebox.showinfo("Success", "Accounts imported successfully!")
+            else:
+                messagebox.showerror("Error", "Failed to import accounts. Please check the file format.")
+    buttons_frame = customtkinter.CTkFrame(frame)
+    buttons_frame.pack(pady=10)
+
+    add_button = customtkinter.CTkButton(buttons_frame, text="➕ Add Account", command=add_account, width=120)
+    add_button.pack(side="left", padx=(0, 10))
+
+    import_button = customtkinter.CTkButton(buttons_frame, text="📁 Import TXT", command=import_accounts, width=120)
+    import_button.pack(side="left")
+
+    list_frame = customtkinter.CTkFrame(frame)
+    list_frame.pack(fill='both', expand=True, padx=20, pady=(0, 20))
+
+    list_title = customtkinter.CTkLabel(list_frame, text='Account List', width=40, height=28, fg_color='transparent', font=("Arial", 16, "bold"))
+    list_title.pack(pady=10)
+
+    accounts_scroll = customtkinter.CTkScrollableFrame(list_frame, height=200)
+    accounts_scroll.pack(expand=True, fill="both", padx=10, pady=(0, 10))
+
+    def refresh_accounts():
+    # Clear existing widgets
+        for widget in accounts_scroll.winfo_children():
+            widget.destroy()
+
+        accounts = manager.list_accounts()
+        if not accounts:
+           no_accounts = customtkinter.CTkLabel(accounts_scroll, text="No accounts found")
+           no_accounts.pack(pady=20)
+        else:
+            for account in accounts:
+                account_frame = customtkinter.CTkFrame(accounts_scroll)
+                account_frame.pack(fill="x", padx=5, pady=5)
+            
+            # Account info
+            info_text = f"👤 {account.username} | 📧 {account.email} | 📝 {account.display_name}"
+            account_label = customtkinter.CTkLabel(account_frame, text=info_text)
+            account_label.pack(side="left", padx=10, pady=5)
+            
+            # Remove button
+            def remove_account(username=account.username):
+                if messagebox.askyesno("Confirm", f"Remove account '{username}'?"):
+                    if manager.remove_account(username):
+                        messagebox.showinfo("Success", f"Account '{username}' removed!")
+                        refresh_accounts()
+                    else:
+                        messagebox.showerror("Error", "Failed to remove account!")
+            
+            remove_btn = customtkinter.CTkButton(account_frame, text="❌", 
+                                               command=remove_account, width=40, height=25)
+            remove_btn.pack(side="right", padx=10, pady=5)
+
+# Refresh button
+        refresh_button = customtkinter.CTkButton(list_frame, text="🔄 Refresh", command=refresh_accounts)
+        refresh_button.pack(pady=5)
+
+# Initial load
+    refresh_accounts()
 
 
 
